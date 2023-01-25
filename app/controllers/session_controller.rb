@@ -3,7 +3,6 @@ class SessionController < ApplicationController
 
   def create
     @user = User.find_by(email: params[:email])
-    # debugger
     if @user&.authenticate(params[:password])
       token = jwt_encode(user_id: @user.id)
       render json: { token: token }, status: :ok
@@ -16,7 +15,5 @@ class SessionController < ApplicationController
     session[:user_id] = nil
     render json: {message: " you are logged out "}, status: :ok
   end
-
-  private
 
 end
