@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
 	before_action :set_product, only: %i[show destroy update]
+	
 	def index
 		products = Product.all
 		render json: products
@@ -33,4 +34,5 @@ class ProductsController < ApplicationController
 	def set_product
 		@product = Product.find(params[:id])
 	end
+	
 end
