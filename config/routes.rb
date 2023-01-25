@@ -4,8 +4,13 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   # get "/login", to: "sessions#create"
+  # namespace :auth do
+  #   post "sign_up", to: "registrations#create"
+  # end
+
   post "/signup", to: "users#create"
   post "/login", to: "session#create"
   resources :users  
   resources :products
+  
 end
