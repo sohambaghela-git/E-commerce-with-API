@@ -1,15 +1,22 @@
 class UsersController < ApplicationController
-	before_action :set_user, only: [:show, :destroy, :update]
+	before_action :set_user, only: [:destroy, :update]
 	skip_before_action :authenticate_request, only: [:create]
+	# before_action :current_user, only: [:index, :destroy, :update]
 
 	def index
 		@users = User.all
-		debugger
-		render json: @users
+		@current_user = $current_user
+		render json: {users: @users, current_user: @current_user }
 	end
 
 	def show
-		render json: @user
+		@user = User.find(params[:id])
+		# debugger
+		if (params[:id].to_i).eql?($current_user.id)
+			render json: @user
+		else
+			render json: " Sorry You can not "
+		end
 	end
 
 	def create

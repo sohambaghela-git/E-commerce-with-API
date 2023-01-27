@@ -11,16 +11,9 @@ module JsonWebToken
 	end
 	
 	def jwt_decode(token)
+		# debugger
 		decoded = JWT.decode(token, SECRET_KEY)[0]
 		HashWithIndifferentAccess.new decoded
 	end
-
-	# def current_user
-	# 	@current_user ||= User.find(payload['user_id'])
-	# end
-
-	# def not_authorized
-	# 	render json: { error: 'Not authorized' }, status: :unauthorized 
-	# end
 
 end
