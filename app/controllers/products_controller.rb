@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+	# To get the particular Product at Action
 	before_action :set_product, only: %i[show destroy update]
 	
 	def index
@@ -13,7 +14,7 @@ class ProductsController < ApplicationController
 	def create
 		product = Product.new(product_params)
 		product.user_id = @current_user.id
-		if $current_user.role == ("seller")
+		if @current_user.role == ("seller")
 			if product.save
 				render json: {product: product, message: "Your product is added"}
 			else
@@ -34,7 +35,7 @@ class ProductsController < ApplicationController
 	end
 
 	def update
-		if (@current_user.id).eql?(@product.user_id)
+		if (@current_user.id) == (@product.user_id)
 			@product.user_id = @current_user.id
 			@product.update(product_params)
 			render json: { product: @product, message: "product updated Successfully", status: :ok }

@@ -1,7 +1,11 @@
 class UsersController < ApplicationController
+	# To get the particular User at Action
 	before_action :set_user, only: [:show, :destroy, :update]
+	
+	# To Make new user to Register on Site
 	skip_before_action :authenticate_request, only: [:create]
-	# before_action :current_user, only: [:index, :destroy, :update]
+	
+	# To create Cart while Registration of user
 	after_action :create_unique_cart, only: [:create]
 
 	def index
@@ -13,7 +17,7 @@ class UsersController < ApplicationController
 		if (params[:id].to_i) == (@current_user.id)
 			render json: @user
 		else
-			render json: " Sorry You can not "
+			render json: " Sorry You can not access this url"
 		end
 	end
 
