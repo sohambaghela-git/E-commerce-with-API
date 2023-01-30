@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_23_071753) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_30_091801) do
+  create_table "carts", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_carts_on_user_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "detail"
@@ -33,4 +40,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_071753) do
     t.string "role"
   end
 
+  add_foreign_key "carts", "users"
 end

@@ -1,18 +1,16 @@
 class UsersController < ApplicationController
-	before_action :set_user, only: [:destroy, :update]
+	before_action :set_user, only: [:show, :destroy, :update]
 	skip_before_action :authenticate_request, only: [:create]
 	# before_action :current_user, only: [:index, :destroy, :update]
+	after_action :create_unique_cart, only: [:create]
 
 	def index
-		@users = User.all
-		@current_user = $current_user
-		render json: {users: @users, current_user: @current_user }
+		users = User.all
+		render json: {users: users, current_user: @current_user }
 	end
 
 	def show
-		@user = User.find(params[:id])
-		# debugger
-		if (params[:id].to_i).eql?($current_user.id)
+		if (params[:id].to_i) == (@current_user.id)
 			render json: @user
 		else
 			render json: " Sorry You can not "
@@ -22,6 +20,7 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(user_params)
 		if @user.save 
+			data = @user.id 
 			render json: @user, status: :created
 		else
 			render json: {message: "this is unappropriate"}, status: :unprocessble_entity

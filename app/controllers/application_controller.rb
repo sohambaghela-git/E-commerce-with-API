@@ -14,5 +14,12 @@ class ApplicationController < ActionController::API
 	def current_user
 		@current_user.present?
 	end
+	
+	# To create a cart for User
+	def create_unique_cart
+    cart = Cart.new
+    cart.user_id = @user.id
+    cart.save
+  end
 
 end
