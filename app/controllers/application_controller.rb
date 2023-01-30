@@ -8,11 +8,11 @@ class ApplicationController < ActionController::API
 		header = request.headers["token"]
 		header = header.split(" ").last if header
 		decoded = jwt_decode(header)
-		$current_user = User.find(decoded[:user_id])
+		@current_user = User.find(decoded[:user_id])
 	end
 
 	def current_user
-		$current_user.present?
+		@current_user.present?
 	end
 
 end
