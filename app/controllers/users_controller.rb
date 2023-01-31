@@ -5,29 +5,25 @@ class UsersController < ApplicationController
 	# To Make new user to Register on Site
 	skip_before_action :authenticate_request, only: [:create]
 	
-	# To create Cart while Registration of user
-	after_action :create_unique_cart, only: [:create]
-
 	def index
 		users = User.all
-		render json: {users: users, current_user: @current_user }
+		render json: {users: users, status: :ok}
 	end
 
 	def show
 		if (params[:id].to_i) == (@current_user.id)
-			render json: @user
+			render json: {user: @user, status: :ok}
 		else
-			render json: " Sorry You can not access this url"
+			render json: {message: "Sorry You can not access this url", status: :unprocessable_entity}
 		end
 	end
 
 	def create
-		@user = User.new(user_params)
-		if @user.save 
-			data = @user.id 
-			render json: @user, status: :created
+		user = User.new(user_params)
+		if user.save 
+			render json: {user: user, status: :ok}
 		else
-			render json: {message: "this is unappropriate"}, status: :unprocessble_entity
+			render json: {message: "Oops! you can not register on site", status: :unprocessble_entity}
 		end
 	end
 
@@ -38,7 +34,7 @@ class UsersController < ApplicationController
 
 	def update
 		@user.update(user_params)
-		render json: @user	
+		render json: {user: @user, status: :ok}
 	end
 
 	private

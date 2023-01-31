@@ -3,13 +3,16 @@ class User < ApplicationRecord
   has_many :products
 	has_one :cart
 	has_many :cart_items
+	after_create :create_cart
 
 	# User Register Validation
-	validates :first_name, presence: true
-	validates :last_name, presence: true
+	validates :first_name, :last_name, :gender,:password, presence: true
 	validates :email, presence: true, uniqueness: true
 	validates :mobile, presence: true, numericality: true
-	validates :gender, presence: true
-	validates :password, presence: true
-	
+
+	private
+	def create_cart
+    Cart.create(user_id: self.id)
+  end
+
 end
