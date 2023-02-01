@@ -3,7 +3,8 @@ class AddressController < ApplicationController
   def create
     address = Address.new(address_params)
     address.user_id = @current_user.id
-    if @current_user.role == "buyer" 
+
+    if @current_user.role == "buyer"
       address.save
       render json: {message: "Your address is Added", status: :ok}
     else
@@ -12,6 +13,7 @@ class AddressController < ApplicationController
   end
 
   private
+
   def address_params
     params.require(:address).permit!
   end

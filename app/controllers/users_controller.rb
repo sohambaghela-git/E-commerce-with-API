@@ -29,7 +29,7 @@ class UsersController < ApplicationController
 
 	def destroy
 		@user.destroy 
-		render json: "User has been Deleted"
+		render json: {message:"User has been Deleted", status: :ok}
 	end
 
 	def update
