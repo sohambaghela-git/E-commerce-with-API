@@ -5,6 +5,7 @@ class User < ApplicationRecord
 	has_many :cart_items
 	after_create :create_cart
 	has_many :addresses
+	has_many :orders
 
 	# User Register Validation
 	validates :first_name, :last_name, :gender,:password, presence: true

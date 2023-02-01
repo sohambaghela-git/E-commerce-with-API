@@ -3,10 +3,11 @@ class AddressController < ApplicationController
   def create
     address = Address.new(address_params)
     address.user_id = @current_user.id
-    if address.save
+    if @current_user.role == "buyer" 
+      address.save
       render json: {message: "Your address is Added", status: :ok}
     else
-      render json: {message: "Your address is not Added", status: :unprocessable_entity}
+      render json: {message: "You can not Add  address", status: :unprocessable_entity}
     end
   end
 
