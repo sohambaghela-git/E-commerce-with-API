@@ -12,5 +12,8 @@ Rails.application.routes.draw do
   post "/login", to: "session#create"
   resources :users
   resources :products
+  resources :cart
+  resources :cart_items
+  resources :address
   
 end

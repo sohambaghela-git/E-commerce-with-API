@@ -1,41 +1,40 @@
 class UsersController < ApplicationController
-	before_action :set_user, only: [:destroy, :update]
+	# To get the particular User at Action
+	before_action :set_user, only: [:show, :destroy, :update]
+	
+	# To Make new user to Register on Site
 	skip_before_action :authenticate_request, only: [:create]
-	# before_action :current_user, only: [:index, :destroy, :update]
-
+	
 	def index
-		@users = User.all
-		@current_user = $current_user
-		render json: {users: @users, current_user: @current_user }
+		users = User.all
+		render json: {users: users, status: :ok}
 	end
 
 	def show
-		@user = User.find(params[:id])
-		# debugger
-		if (params[:id].to_i).eql?($current_user.id)
-			render json: @user
+		if (params[:id].to_i) == (@current_user.id)
+			render json: {user: @user, status: :ok}
 		else
-			render json: " Sorry You can not "
+			render json: {message: "Sorry You can not access this url", status: :unprocessable_entity}
 		end
 	end
 
 	def create
-		@user = User.new(user_params)
-		if @user.save 
-			render json: @user, status: :created
+		user = User.new(user_params)
+		if user.save 
+			render json: {user: user, status: :ok}
 		else
-			render json: {message: "this is unappropriate"}, status: :unprocessble_entity
+			render json: {message: "Oops! you can not register on site", status: :unprocessble_entity}
 		end
 	end
 
 	def destroy
 		@user.destroy 
-		render json: "User has been Deleted"
+		render json: {message:"User has been Deleted", status: :ok}
 	end
 
 	def update
 		@user.update(user_params)
-		render json: @user	
+		render json: {user: @user, status: :ok}
 	end
 
 	private
