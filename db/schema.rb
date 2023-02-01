@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_30_141504) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_01_071538) do
+  create_table "addresses", force: :cascade do |t|
+    t.string "colony"
+    t.integer "pincode"
+    t.string "state"
+    t.string "city"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_addresses_on_user_id"
+  end
+
   create_table "cart_items", force: :cascade do |t|
     t.integer "cart_id", null: false
     t.integer "product_id", null: false
@@ -52,6 +63,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_30_141504) do
     t.string "role"
   end
 
+  add_foreign_key "addresses", "users"
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"
   add_foreign_key "cart_items", "users"

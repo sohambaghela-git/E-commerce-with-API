@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
 	# To get the particular Product at Action
 	before_action :set_product, only: %i[show destroy update]
-	before_action :seller, only: [:create, :update, :destroy]
+	before_action :seller, only: %i[show update destroy]
 	
 	def index
 		products = Product.all
