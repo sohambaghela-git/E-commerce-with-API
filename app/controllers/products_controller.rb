@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
 	  product.user_id = @current_user.id
 
 		if product.save
-	      render json: {product: product, message: "Your product is added"}
+	    render json: {product: product, message: "Your product is added"}
 		else
 		  render json: {product: product, message: "You are not valid to add product"}
 		end
