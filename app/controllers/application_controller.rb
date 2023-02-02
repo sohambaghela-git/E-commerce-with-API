@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::API
-	include JsonWebToken 
+	include JsonWebToken
 	before_action :authenticate_request
+  before_action :check_access
 
 	private
 
@@ -14,5 +15,14 @@ class ApplicationController < ActionController::API
 	def current_user
 		@current_user.present?
 	end
+
+  def check_access
+    default_role = YAML.load(File.read(Rails.root.to_s + '/config/role.yml'))
+    authorize = default_role[@current_user.role][params[:controller]]
+    unless authorize.include?(params[:action])
+      render json: {message: "You are not authorize", status: :unprocessable_entity}
+    end
+    
+  end
 
 end

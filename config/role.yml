@@ -1,0 +1,5 @@
+buyer:
+  products: ['index', 'show']
+
+seller:
+  products: ['create', 'update', 'destroy']

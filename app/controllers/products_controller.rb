@@ -7,20 +7,17 @@ class ProductsController < ApplicationController
 	end
 
 	def show 
-		render json: @product
+		render json: {product: @product, message: "This is product "}
 	end
 
 	def create
 		product = Product.new(product_params)
 		product.user_id = @current_user.id
-		if $current_user.role == ("seller")
-			if product.save
-				render json: {product: product, message: "Your product is added"}
-			else
-				render json: {product: product, message: "Sorry you can not add product"}
-			end
+		
+		if product.save
+			render json: {product: product, message: "Your product is added"}
 		else
-			render json: {product: product, message: "You are not valid to add product"}
+			render json: {product: product, message: "Sorry you can not add product"}
 		end
 	end
 
@@ -34,7 +31,7 @@ class ProductsController < ApplicationController
 	end
 
 	def update
-		if (@current_user.id).eql?(@product.user_id)
+		if (@current_user.id) == (@product.user_id)
 			@product.user_id = @current_user.id
 			@product.update(product_params)
 			render json: { product: @product, message: "product updated Successfully", status: :ok }

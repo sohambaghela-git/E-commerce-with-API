@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
 	def index
 		@orders = Order.all
-		render json: @orders 
+		render json: @orders
 	end
 	def create
 		@article = Product.find(params[:product_id])
