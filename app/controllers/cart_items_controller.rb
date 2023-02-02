@@ -3,11 +3,10 @@ class CartItemsController < ApplicationController
   def create 
     cart_item = CartItem.new(cart_item_params)
     cart_item.user_id = @current_user.id
-    
     if cart_item.save
-      render json: {message: "Product added into cart ", status: :ok}
+      render json: {message: "Product added into cart", status: :ok}
     else
-      render json: {message: "Product not added ", status: :unprocessable_entity}
+      render json: {message: "Product not added", status: :unprocessable_entity}
     end
   end
 
