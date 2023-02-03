@@ -1,13 +1,9 @@
 buyer:
   products: ["index", "show"]
   orders: ["create", "update"]
-  cart_items: ["create", "update", "destroy"]
+  cart_items: ["index","create", "update", "destroy"]
 
 seller:
   products: ["index", "show", "create", "update", "destroy", "myproduct"]
   orders: ["index"]
   cart_items: []
-
-
-
-
