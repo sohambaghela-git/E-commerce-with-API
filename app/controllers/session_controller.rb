@@ -1,6 +1,8 @@
 class SessionController < ApplicationController
   # To Skip Filter on Create action to make user login
   skip_before_action :authenticate_request
+  skip_before_action :check_user  
+  
 
   def create
     user = User.find_by(email: params[:email])

@@ -1,4 +1,5 @@
 class CartController < ApplicationController
+  skip_before_action :check_user
 
   def index
     cart = @current_user.cart

@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
 	# To get the particular User at Action
 	before_action :set_user, only: [:show, :destroy, :update]
-	
-	# To Make new user to Register on Site
+  skip_before_action :check_user	
 	skip_before_action :authenticate_request, only: [:create]
 	
 	def index

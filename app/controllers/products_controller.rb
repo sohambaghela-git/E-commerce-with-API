@@ -1,7 +1,6 @@
 class ProductsController < ApplicationController
   # To get the particular Product at Action
   before_action :set_product, only: %i[show destroy update]
-  before_action :seller, only: %i[show update destroy]
 		
   def index
     products = Product.all
@@ -33,8 +32,8 @@ class ProductsController < ApplicationController
   end
 
   def update
-		if authorize_user
-		  @product.update(product_params)
+    @product.user_id = @current_user.id
+		if @product.update(product_params)
 		  render json: { product: @product, message: "Product updated Successfully", status: :ok }
 		else
 		  render json:  {message: "Sorry you can not update this product ", status: :unprocessable_entity }
