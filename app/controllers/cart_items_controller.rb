@@ -12,7 +12,7 @@ class CartItemsController < ApplicationController
     if cart_item.save
       render json: {message: 'Product added into cart', status: :ok}
     else
-      render json: {message: 'Product not added', status: :unprocessable_entity}
+      render json: {error:cart_item.errors.messages, status: :unprocessable_entity}
     end
   end
 
@@ -22,7 +22,7 @@ class CartItemsController < ApplicationController
     if cart_item.update(cart_item_params)
       render json: {message: 'Product updated into cart', status: :ok}
     else
-      render json: {message: 'Product did not update', status: :unprocessable_entity}
+      render json: {error:cart_item.errors.messages, status: :unprocessable_entity}
     end
   end
 
@@ -31,7 +31,7 @@ class CartItemsController < ApplicationController
       @cart_item.destroy
       render json: {message: 'Product is removed', status: :ok}
     else
-      render json: {message: 'Product is not removed', status: :unprocessable_entity}
+      render json: {error:cart_item.errors.messages, status: :unprocessable_entity}
     end
   end
 
