@@ -5,9 +5,9 @@ class AddressController < ApplicationController
     address.user_id = @current_user.id
 
     if address.save
-      render json: {message: "Your address is Added", status: :ok}
+      render json: {message: 'Your address is Added', status: :ok}
     else
-      render json: {message: "You can not Add  address", status: :unprocessable_entity}
+      render json: {message: 'You can not Add  address', status: :unprocessable_entity}
     end
   end
 

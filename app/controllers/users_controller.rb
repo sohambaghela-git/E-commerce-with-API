@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 		if (params[:id].to_i) == (@current_user.id)
 			render json: {user: @user, status: :ok}
 		else
-			render json: {message: "Sorry You can not access this url", status: :unprocessable_entity}
+			render json: {message: 'Sorry You can not access this url', status: :unprocessable_entity}
 		end
 	end
 
@@ -22,13 +22,13 @@ class UsersController < ApplicationController
 		if user.save 
 			render json: {user: user, status: :ok}
 		else
-			render json: {message: "Oops! you can not register on site", status: :unprocessble_entity}
+			render json: {message: 'Oops! you can not register on site', status: :unprocessble_entity}
 		end
 	end
 
 	def destroy
 		@user.destroy 
-		render json: {message:"User has been Deleted", status: :ok}
+		render json: {message:'User has been Deleted', status: :ok}
 	end
 
 	def update
