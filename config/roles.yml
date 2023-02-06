@@ -2,6 +2,7 @@ buyer:
   products: ['index', 'show']
   orders: ['create', 'update']
   cart_items: ['index','create', 'update', 'destroy']
+  address: ['index','create', 'update', 'destroy']
 
 seller:
   products: ['index', 'show', 'create', 'update', 'destroy', 'myproduct']
