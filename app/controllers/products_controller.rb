@@ -16,27 +16,27 @@ class ProductsController < ApplicationController
 	  product.user_id = @current_user.id
 
 		if product.save
-	    render json: {product: product, message: "Your product is added"}
+	    render json: {product: product, message: 'Your product is added'}
 		else
-		  render json: {product: product, message: "You are not valid to add product"}
+		  render json: {product: product, message: 'You are not valid to add product'}
 		end
   end
 
   def destroy
 		if authorize_user
 		  @product.destroy
-		  render json: { message: "Your product was destroyed successfully", status: :ok}
+		  render json: { message: 'Your product was destroyed successfully', status: :ok}
 		else
-		  render json: { message: "You can not destroy this product", status: :unprocessable_entity}
+		  render json: { message: 'You can not destroy this product', status: :unprocessable_entity}
 		end
   end
 
   def update
     @product.user_id = @current_user.id
 		if @product.update(product_params)
-		  render json: { product: @product, message: "Product updated Successfully", status: :ok }
+		  render json: { product: @product, message: 'Product updated Successfully', status: :ok }
 		else
-		  render json:  {message: "Sorry you can not update this product ", status: :unprocessable_entity }
+		  render json:  {message: 'Sorry you can not update this product', status: :unprocessable_entity }
 		end
   end
 

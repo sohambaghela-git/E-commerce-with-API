@@ -8,9 +8,9 @@ class SessionController < ApplicationController
     user = User.find_by(email: params[:email])
     if user&.authenticate(params[:password])
       token = jwt_encode(user_id: user.id)
-      render json: { token: token }, status: :ok
+      render json: { token: token , status: :ok }
     else
-      render json: { error: " email and password is incorrect "}, status: :unauthorized
+      render json: { error: 'Email and password is incorrect', status: :unauthorized }
     end
   end
 
