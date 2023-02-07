@@ -12,7 +12,7 @@ class AddressController < ApplicationController
     if address.save
       render json: {message: 'Your address is added', status: :ok}
     else
-      render json: {message: 'You can not add address', status: :unprocessable_entity}
+      render json: {error:address.errors.messages, status: :unprocessable_entity}
     end
   end
 
@@ -21,7 +21,7 @@ class AddressController < ApplicationController
       @address.update(address_params)
       render json: { message: 'Your address is updated', status: :ok}
     else
-      render json: { message: 'You can not update this address', status: :unprocessable_entity }
+      render json: { error:address.errors.messages, status: :unprocessable_entity }
     end
   end
 
@@ -30,7 +30,7 @@ class AddressController < ApplicationController
       @address.destroy
       render json: { message: 'Your address is destroyed', status: :ok}
     else
-      render json: { message: 'You can not destroy this address', status: :unprocessable_entity }
+      render json: { error:address.errors.messages, status: :unprocessable_entity }
     end
   end
 
