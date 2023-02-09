@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
   has_many :products
-	has_one :cart
+	has_one :cart, dependent: :destroy
 	has_many :cart_items
 	after_create :create_cart
 	has_many :addresses
