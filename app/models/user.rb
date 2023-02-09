@@ -11,7 +11,7 @@ class User < ApplicationRecord
 	validates :first_name, :last_name, :gender,:password, presence: true
 	validates :email, presence: true, uniqueness: true
 	validates :mobile, presence: true, numericality: true
-
+  
 	private
 	def create_cart
     Cart.create(user_id: self.id)

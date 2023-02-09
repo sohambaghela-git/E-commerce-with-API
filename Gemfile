@@ -50,6 +50,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'simplecov'
   gem 'byebug'
+  gem 'factory_bot_rails'
 end
 
 group :development do

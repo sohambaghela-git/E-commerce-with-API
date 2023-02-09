@@ -1,42 +1,48 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) { User.create(first_name:"John", last_name:"baghela", gender:"male",password:"123456",email:"example@gmail.com",mobile:"08949", role:"buyer") }
+    # user = FactoryBot.create(:user)  
     let(:cart) { Cart.find_by( user_id: user.id) }
 
   describe "validations" do
     it "requires a first_name" do
-      user = User.new(first_name: nil, last_name:"baghela", gender:"male",password:"123456",email:"example@gmail.com",mobile:"08949" )
+      user = FactoryBot.create(:user)
+      user.first_name = nil
       result = user.valid?
       expect(user.errors.full_messages).eql?(["First name can't be blank"])
     end
-    
+  
     it "requires a last_name" do
-      user = User.new(first_name: "soham", last_name:nil, gender:"male",password:"123456",email:"example@gmail.com",mobile:"08949")
+      user = FactoryBot.create(:user)
+      user.last_name = nil
       result = user.valid?
       expect(user.errors.messages).eql?(["Last name can't be blank"])
     end
 
     it "requires a gender" do
-      user = User.new(first_name: "soham", last_name:"baghela", gender:nil,password:"123456",email:"example@gmail.com",mobile:"08949" )
+      user = FactoryBot.create(:user)
+      user.gender = nil
       result = user.valid?
       expect(user.errors.full_messages).eql?(["Gender can't be blank"])
     end
 
     it "requires a mobile" do
-      user = User.new(first_name: "soham", last_name:"baghela", gender:"male",password:"123456",email:"example@gmail.com",mobile:nil )
+      user = FactoryBot.create(:user)
+      user.mobile = nil
       result = user.valid?
       expect(user.errors.full_messages).eql?(["Mobile can't be blank"])
     end
 
     it "requires a email" do
-      user = User.new(first_name: "soham", last_name:"baghela", gender:"male",password:"123456",email:nil,mobile:"08949" )
+      user = FactoryBot.create(:user)
+      user.email = nil
       result = user.valid?
       expect(user.errors.full_messages).eql?(["Email can't be blank"])
     end
  
     it "requires a password" do
-      user = User.new(first_name: "soham", last_name:"baghela", gender:"male",password:nil,email:"example@gmail.com",mobile:"08949" )
+      user = FactoryBot.create(:user)
+      user.password = nil
       result = user.valid?
       expect(user.errors.full_messages).eql?(["Password can't be blank"])
     end
@@ -44,11 +50,14 @@ RSpec.describe User, type: :model do
 
   describe "associations" do
     it "has one cart" do
+      user = FactoryBot.create(:user)
+      cart = Cart.find_by(user_id:user.id)
       expect(user.cart).to eq(cart)
     end
 
     it "destroys the associated cart when destroyed" do
-      expect { user.destroy }.to change { Cart.count }.by(0)
+      user = FactoryBot.create(:user)
+      expect { user.destroy }.to change { Cart.count }.by(-1)
     end
   end
 
