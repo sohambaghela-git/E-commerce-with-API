@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   let(:user) { User.create(first_name:"John", last_name:"baghela", gender:"male",password:"123456",email:"example@gmail.com",mobile:"08949", role:"buyer") }
-  let(:cart) { Cart.create( user_id: user.id) }
+    let(:cart) { Cart.find_by( user_id: user.id) }
 
   describe "validations" do
     it "requires a first_name" do
@@ -44,7 +44,7 @@ RSpec.describe User, type: :model do
 
   describe "associations" do
     it "has one cart" do
-      expect(user.cart) == (cart)
+      expect(user.cart).to eq(cart)
     end
 
     it "destroys the associated cart when destroyed" do
