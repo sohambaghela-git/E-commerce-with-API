@@ -1,9 +1,10 @@
 class User < ApplicationRecord
+  after_create :create_cart
+  
   has_secure_password
   has_many :products
 	has_one :cart, dependent: :destroy
 	has_many :cart_items
-	after_create :create_cart
 	has_many :addresses
 	has_many :orders
 
@@ -11,6 +12,7 @@ class User < ApplicationRecord
 	validates :first_name, :last_name, :gender,:password, presence: true
 	validates :email, presence: true, uniqueness: true
 	validates :mobile, presence: true, numericality: true
+  validates :role, inclusion: { in: ['buyer', 'seller']}
   
 	private
 	def create_cart
